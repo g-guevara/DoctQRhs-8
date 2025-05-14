@@ -101,7 +101,7 @@ export default function MedicalInfoPage() {
     <div className="w-full max-w-4xl mx-auto px-6 py-12">
       <div className="medical-emergency-header bg-red-600 text-white p-4 rounded-t-xl text-center mb-2">
         <h1 className="text-xl font-bold">MEDICAL INFORMATION</h1>
-        <p>EMERGENCY USE ONLY</p>
+     
       </div>
       
       {/* Patient Info */}

@@ -606,6 +606,9 @@ const handleSaveChanges = async () => {
         </div>
       )}
       
+      {/* Shared Link Section - MOVED HERE as requested */}
+      <SharedLinkSection />
+      
       {/* Basic Information */}
       <Card className="w-full mb-8">
         <CardHeader className="flex flex-col items-start px-6 py-4">
@@ -981,9 +984,7 @@ const handleSaveChanges = async () => {
           />
         </CardBody>
       </Card>
-      
-      {/* Shared Link Section */}
-      <SharedLinkSection />
+            <SharedLinkSection />
       
       {/* Action Buttons */}
       <Card className="w-full print:hidden">
