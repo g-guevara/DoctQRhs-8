@@ -29,9 +29,10 @@ export default function SignInPage() {
           <div className="text-center md:text-left">
             <h2 className={`${title({ color: "blue" })} mb-4`}>
               Access Your Medical QR Profile
-                <br/>
+
             </h2>
             <p className="text-gray-600">
+                            <br/> 
               Sign in to manage your medical information, update your emergency contacts,
               and access your personalized QR code.
             </p>

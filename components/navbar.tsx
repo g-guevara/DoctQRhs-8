@@ -151,9 +151,9 @@ export const Navbar = () => {
 
           
           {/* Dark mode theme switcher */}
-          <NavbarItem className="ml-3">
+          {/* <NavbarItem className="ml-3">
             <ThemeSwitch />
-          </NavbarItem>
+          </NavbarItem> */}
         </ul>
       </NavbarContent>
 

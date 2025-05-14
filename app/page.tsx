@@ -133,7 +133,7 @@ export default function DoctQRPage() {
               </div>
               <p className="text-gray-600">
 
-  <strong>DoctQR</strong> is an exciting and innovative solution that transforms how we access and share medical information — all through a simple, scannable QR code. Whether you're managing a chronic condition, have allergies, or simply want to be prepared for emergencies, <strong>DoctQR</strong> empowers you to make your essential medical data instantly available when it matters most. Our platform was created with one clear mission: to make health information accessible, fast, and reliable — anytime, anywhere.
+  <strong>DoctQR</strong> is an exciting and innovative solution that transforms how we access and share medical information — all through a simple, scannable QR code. Whether youre managing a chronic condition, have allergies, or simply want to be prepared for emergencies, <strong>DoctQR</strong> empowers you to make your essential medical data instantly available when it matters most. Our platform was created with one clear mission: to make health information accessible, fast, and reliable — anytime, anywhere.
   <br/><br/>
   With just a quick scan, first responders, doctors, or even bystanders can access critical health details that could save lives. Best of all, <strong>DoctQR</strong> is completely <strong>free for life</strong> and designed to work seamlessly across the globe. Because everyone deserves safe and accessible healthcare — no matter where they are.
 
