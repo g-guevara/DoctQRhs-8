@@ -300,7 +300,7 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
         <body>
           <div class="page">
             <div class="print-note">
-              <strong>IMPORTANT:</strong> Please make sure "Background graphics" or "Print backgrounds" is enabled in your print settings to get the red background color. This setting is usually found under "More settings" in the print dialog.
+              <strong>IMPORTANT:</strong> Please make sure Background graphics or Print backgrounds is enabled in your print settings to get the red background color. This setting is usually found under "More settings" in the print dialog.
             </div>
             
             <div class="instructions">
@@ -308,7 +308,7 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
               <p>Please follow these steps to create your emergency medical card:</p>
               <ol>
                 <li>Print this page at 100% scale (no scaling/resizing)</li>
-                <li>Make sure "Background graphics" is enabled in your print settings</li>
+                <li>Make sure Background graphics is enabled in your print settings</li>
                 <li>Carefully cut along the dashed lines</li>
                 <li>Fold the card if needed and keep it in your wallet</li>
               </ol>
@@ -403,7 +403,7 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
           Printing Instructions
         </h3>
         <ol className="list-decimal pl-5 text-sm space-y-1 text-blue-900">
-          <li>Click the "Print Card" button below</li>
+          <li>Click the Print Card button below</li>
           <li>Print at 100% scale (no size adjustment)</li>
           <li>Cut along the dashed lines carefully</li>
           <li>Keep in your wallet for emergency situations</li>
