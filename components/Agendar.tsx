@@ -20,7 +20,7 @@ export default function Agendar() {
       const baseUrl =
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3000' // Local
-        : 'https://guillermo-guevara-invitacion.vercel.app'; // Producción
+        : 'https://www.doctqr.link/'; // Producción
           const res = await fetch(`${baseUrl}/api/schedules`, { method: 'GET' });
       if (res.ok) {
         const data = await res.json();
