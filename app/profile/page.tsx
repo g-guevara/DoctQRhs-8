@@ -298,83 +298,113 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSaveChanges = async () => {
-    if (!user) return;
+const handleSaveChanges = async () => {
+  if (!user) return;
+  
+  setIsSaving(true);
+  
+  try {
+    // Parse numeric values
+    const numericHeight = formData.height ? parseFloat(formData.height) : undefined;
+    const numericWeight = formData.weight ? parseFloat(formData.weight) : undefined;
     
-    setIsSaving(true);
+    // Create medical info object
+    const medicalInfo = {
+      birthDate: formData.birthDate,
+      language: formData.language,
+      isOrganDonor: formData.isOrganDonor,
+      isPregnant: formData.isPregnant,
+      medications: formData.medications,
+      allergies: formData.allergies,
+      emergencyContacts: formData.emergencyContacts,
+      conditions: formData.conditions,
+      height: numericHeight,
+      weight: numericWeight,
+      bloodType: formData.bloodType,
+      additionalNotes: formData.additionalNotes,
+      // Include the user ID if available
+      userId: user._id || "demo-user-id"
+    };
     
-    try {
-      // Parse numeric values
-      const numericHeight = formData.height ? parseFloat(formData.height) : undefined;
-      const numericWeight = formData.weight ? parseFloat(formData.weight) : undefined;
-      
-      // Create medical info object
-      const medicalInfo = {
-        birthDate: formData.birthDate,
-        language: formData.language,
-        isOrganDonor: formData.isOrganDonor,
-        isPregnant: formData.isPregnant,
-        medications: formData.medications,
-        allergies: formData.allergies,
-        emergencyContacts: formData.emergencyContacts,
-        conditions: formData.conditions,
-        height: numericHeight,
-        weight: numericWeight,
-        bloodType: formData.bloodType,
-        additionalNotes: formData.additionalNotes
-      };
-      
-      // Save to the database
-      const response = await fetch('/api/medical-info', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(medicalInfo)
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to save medical information');
+    console.log("Saving medical info:", medicalInfo);
+    
+    // Save to the database
+    const response = await fetch('/api/medical-info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(medicalInfo)
+    });
+    
+    console.log("Response status:", response.status);
+    
+    const responseText = await response.text();
+    console.log("Response text:", responseText);
+    
+    if (!response.ok) {
+      let errorMessage = 'Failed to save medical information';
+      try {
+        const errorData = JSON.parse(responseText);
+        console.error("Error details:", errorData);
+        errorMessage = errorData.error || errorMessage;
+        if (errorData.details) {
+          console.error("Error details:", errorData.details);
+        }
+        if (errorData.stack) {
+          console.error("Error stack:", errorData.stack);
+        }
+      } catch (e) {
+        console.error("Could not parse error response:", e);
       }
-      
-      const data = await response.json();
-      
-      // Update local state with the data from the server
-      setSharedLink(data.publicUrl);
-      
-      // Also update localStorage/sessionStorage for backwards compatibility
-      const updatedUser = {
-        ...user,
-        medicalInfo: medicalInfo
-      };
-      
-      if (localStorage.getItem("user")) {
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-      }
-      
-      if (sessionStorage.getItem("user")) {
-        sessionStorage.setItem("user", JSON.stringify(updatedUser));
-      }
-      
-      setUser(updatedUser);
-      setSaveMessage({ text: "Changes saved successfully!", type: "success" });
-      
-      // Clear success message after 3 seconds
-      setTimeout(() => {
-        setSaveMessage(null);
-      }, 3000);
-      
-    } catch (error) {
-      console.error("Error saving data:", error);
-      setSaveMessage({ 
-        text: error instanceof Error ? error.message : "Failed to save changes. Please try again.", 
-        type: "error" 
-      });
-    } finally {
-      setIsSaving(false);
+      throw new Error(errorMessage);
     }
-  };
+    
+    // Parse the response again
+    let data;
+    try {
+      data = JSON.parse(responseText);
+      console.log("Success data:", data);
+    } catch (e) {
+      console.error("Error parsing success response:", e);
+      throw new Error("Invalid response from server");
+    }
+    
+    // Update local state with the data from the server
+    setSharedLink(data.publicUrl);
+    
+    // Also update localStorage/sessionStorage for backwards compatibility
+    const updatedUser = {
+      ...user,
+      medicalInfo: medicalInfo
+    };
+    
+    if (localStorage.getItem("user")) {
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    }
+    
+    if (sessionStorage.getItem("user")) {
+      sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    }
+    
+    setUser(updatedUser);
+    setSaveMessage({ text: "Changes saved successfully!", type: "success" });
+    
+    // Clear success message after 3 seconds
+    setTimeout(() => {
+      setSaveMessage(null);
+    }, 3000);
+    
+  } catch (error) {
+    console.error("Error saving data:", error);
+    setSaveMessage({ 
+      text: error instanceof Error ? error.message : "Failed to save changes. Please try again.", 
+      type: "error" 
+    });
+  } finally {
+    setIsSaving(false);
+  }
+};
 
   const handleSignOut = () => {
     // Show navbar again when signing out
