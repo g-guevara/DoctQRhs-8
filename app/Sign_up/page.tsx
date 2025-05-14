@@ -27,13 +27,8 @@ export default function SignUpPage() {
         {/* Right side - Information */}
         <div className="flex flex-col items-center md:items-start gap-8">
           <div className="text-center md:text-left">
-            <h2 className={`${title({ color: "blue" })} mb-4`}>
-              Carry Your Medical Info Everywhere
-            </h2>
-            <p className="text-gray-600">
-              DoctQR provides a simple solution to keep your critical medical information
-              accessible in emergencies through a convenient QR code card.
-            </p>
+
+
           </div>
           
           <div className="bg-blue-50 p-6 rounded-xl w-full max-w-md">

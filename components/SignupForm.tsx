@@ -179,7 +179,7 @@ export default function SignupForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* First Name */}
             <Input
-              isRequired
+         
               label="First Name"
               placeholder="Enter your first name"
               name="firstName"
@@ -192,7 +192,7 @@ export default function SignupForm() {
             
             {/* Last Name */}
             <Input
-              isRequired
+              
               label="Last Name"
               placeholder="Enter your last name"
               name="lastName"
@@ -206,7 +206,7 @@ export default function SignupForm() {
           
           {/* Email */}
           <Input
-            isRequired
+            
             label="Email"
             placeholder="Enter your email"
             name="email"
@@ -220,7 +220,7 @@ export default function SignupForm() {
           
           {/* Password */}
           <Input
-            isRequired
+            
             label="Password"
             placeholder="Create a password"
             name="password"
@@ -247,7 +247,7 @@ export default function SignupForm() {
           
           {/* Confirm Password */}
           <Input
-            isRequired
+            
             label="Confirm Password"
             placeholder="Confirm your password"
             name="confirmPassword"

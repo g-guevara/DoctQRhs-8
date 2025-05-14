@@ -131,7 +131,7 @@ export default function SigninForm() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Email */}
           <Input
-            isRequired
+      
             label="Email"
             placeholder="Enter your email"
             name="email"
@@ -143,7 +143,7 @@ export default function SigninForm() {
           
           {/* Password */}
           <Input
-            isRequired
+            
             label="Password"
             placeholder="Enter your password"
             name="password"

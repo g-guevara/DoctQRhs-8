@@ -16,6 +16,8 @@ import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import { Divider } from "@nextui-org/divider";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
+import Image from "next/image"; // Make sure this is imported at the top of your file
+
 
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -52,14 +54,22 @@ export const Navbar = () => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       {/* Logo section - left side */}
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">DoctQR</p>
-          </NextLink>
-        </NavbarBrand>
-      </NavbarContent>
+<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+  <NavbarBrand as="li" className="gap-3 max-w-fit">
+    <NextLink className="flex justify-start items-center gap-1" href="/">
+      <div className="border border-gray-200 rounded-full shadow-sm overflow-hidden flex items-center justify-center" style={{ width: '26px', height: '26px' }}>
+        <Image 
+          src="/favicon.ico" // Assuming your favicon is named favicon.ico
+          alt="DoctQR Logo"
+          width={26}
+          height={26}
+          className="object-cover"
+        />
+      </div>
+      <p className="font-bold text-inherit">DoctQR</p>
+    </NextLink>
+  </NavbarBrand>
+</NavbarContent>
 
       {/* Navigation links and theme switcher - right side */}
       <NavbarContent
