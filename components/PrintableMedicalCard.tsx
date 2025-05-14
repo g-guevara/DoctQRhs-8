@@ -39,6 +39,18 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
         <head>
           <title>DoctQR - Emergency Medical Card</title>
           <style>
+            /* Critical: Force background colors to print */
+            * {
+              -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+              color-adjust: exact !important;                 /* Firefox 48 – 96 */
+              print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+            }
+            
+            @page {
+              size: letter;
+              margin: 0.5in;
+            }
+            
             @media print {
               body {
                 margin: 0;
@@ -66,8 +78,8 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
               .card {
                 width: 3.375in;
                 height: 2.125in;
-                background-color: #FF0000;
-                color: white;
+                background-color: #FF0000 !important; /* Force red background */
+                color: white !important;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -82,9 +94,10 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
                 font-family: Arial, sans-serif;
                 line-height: 1;
                 padding-left: 15px;
+                color: white !important;
               }
               .qr-container {
-                background: white;
+                background: white !important;
                 padding: 10px;
                 margin-right: 15px;
                 width: 150px;
@@ -101,38 +114,38 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
                 position: absolute;
                 width: 25px;
                 height: 25px;
-                border: 5px solid white;
+                border: 5px solid white !important;
               }
               .top-left {
                 top: 10px;
                 left: 10px;
-                border-right: none;
-                border-bottom: none;
+                border-right: none !important;
+                border-bottom: none !important;
               }
               .top-right {
                 top: 10px;
                 right: 10px;
-                border-left: none;
-                border-bottom: none;
+                border-left: none !important;
+                border-bottom: none !important;
               }
               .bottom-left {
                 bottom: 10px;
                 left: 10px;
-                border-right: none;
-                border-top: none;
+                border-right: none !important;
+                border-top: none !important;
               }
               .bottom-right {
                 bottom: 10px;
                 right: 10px;
-                border-left: none;
-                border-top: none;
+                border-left: none !important;
+                border-top: none !important;
               }
               .initials {
                 position: absolute;
                 right: 10px;
                 bottom: 5px;
                 font-size: 10px;
-                color: rgba(255, 255, 255, 0.6);
+                color: rgba(255, 255, 255, 0.6) !important;
               }
               .no-print {
                 display: none;
@@ -140,6 +153,19 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
               .cutting-lines {
                 border: 1px dashed #333;
                 margin: 10px;
+              }
+              .print-note {
+                background-color: #f8f9fa !important;
+                border: 1px solid #ddd !important;
+                padding: 10px !important;
+                margin-bottom: 20px !important;
+                font-family: Arial, sans-serif !important;
+                font-size: 14px !important;
+                color: #333 !important;
+              }
+              .print-note strong {
+                color: #d00 !important;
+                font-weight: bold !important;
               }
             }
             @media screen {
@@ -256,16 +282,33 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
                 border: 1px dashed #333;
                 margin: 10px;
               }
+              .print-note {
+                background-color: #f8f9fa;
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin-bottom: 20px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+              }
+              .print-note strong {
+                color: #d00;
+                font-weight: bold;
+              }
             }
           </style>
         </head>
         <body>
           <div class="page">
+            <div class="print-note">
+              <strong>IMPORTANT:</strong> Please make sure "Background graphics" or "Print backgrounds" is enabled in your print settings to get the red background color. This setting is usually found under "More settings" in the print dialog.
+            </div>
+            
             <div class="instructions">
               <h1>Emergency Medical Information Card</h1>
               <p>Please follow these steps to create your emergency medical card:</p>
               <ol>
                 <li>Print this page at 100% scale (no scaling/resizing)</li>
+                <li>Make sure "Background graphics" is enabled in your print settings</li>
                 <li>Carefully cut along the dashed lines</li>
                 <li>Fold the card if needed and keep it in your wallet</li>
               </ol>
@@ -353,10 +396,10 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
         </div>
       </div>
       
-      {/* Print Instructions */}
+      {/* Print Instructions with Background Warning */}
       <div className="bg-blue-50 p-4 rounded-lg w-full max-w-md mb-6">
         <h3 className="font-bold text-blue-800 mb-2 flex items-center">
-          <ScissorsIcon className="w-5 h-5 mr-2" />
+          <PrinterIcon className="w-5 h-5 mr-2" />
           Printing Instructions
         </h3>
         <ol className="list-decimal pl-5 text-sm space-y-1 text-blue-900">

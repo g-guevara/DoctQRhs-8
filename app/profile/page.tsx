@@ -592,15 +592,7 @@ const SharedLinkSection = () => {
         <h1 className={`${title({color: "blue", size: "lg"})}`}>Medical Profile</h1>
         
         <div className="flex flex-wrap gap-3 mt-4 md:mt-0">
-          <Button 
-            color="default" 
-            variant="bordered"
-            startContent={<PrinterIcon className="w-5 h-5" />}
-            onPress={handlePrint}
-            size="md"
-          >
-            Print
-          </Button>
+
           
           <Button 
             color="danger" 
@@ -1022,16 +1014,7 @@ const SharedLinkSection = () => {
             )}
             
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-              <Button 
-                color="primary" 
-                variant="bordered"
-                startContent={<PrinterIcon className="w-5 h-5" />}
-                onPress={handlePrint}
-                size="lg"
-                className="px-8"
-              >
-                Print
-              </Button>
+
               
               <Button 
                 color="danger" 
