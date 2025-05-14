@@ -7,7 +7,13 @@ import {
   CardHeader, 
   Divider,
   Spinner,
-  Chip
+  Chip,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell
 } from "@nextui-org/react";
 import { useParams } from "next/navigation";
 import { title } from "@/components/primitives";
@@ -71,10 +77,7 @@ export default function MedicalInfoPage() {
 
     fetchMedicalInfo();
   }, [id]);
-
-  // Rest of the component remains the same...
   
-  // (Keep the rest of your component code as is...)
   if (loading) {
     return (
       <div className="w-full flex justify-center items-center min-h-[70vh]">
@@ -85,9 +88,9 @@ export default function MedicalInfoPage() {
 
   if (error || !medicalInfo) {
     return (
-      <div className="w-full max-w-4xl mx-auto px-6 py-12">
+      <div className="w-full max-w-4xl mx-auto px-6 py-8">
         <Card className="w-full">
-          <CardBody className="p-12 text-center">
+          <CardBody className="p-8 text-center">
             <h2 className="text-2xl font-bold text-danger mb-4">Information Not Found</h2>
             <p className="text-gray-600">{error || "Medical information not available"}</p>
           </CardBody>
@@ -96,182 +99,178 @@ export default function MedicalInfoPage() {
     );
   }
 
-  // Rest of the component with all the return JSX...
   return (
-    <div className="w-full max-w-4xl mx-auto px-6 py-12">
-      <div className="medical-emergency-header bg-red-600 text-white p-4 rounded-t-xl text-center mb-2">
+    <div className="w-full max-w-4xl mx-auto px-4 py-6">
+      {/* Page Header */}
+      <div className="bg-red-600 text-white p-3 rounded-t-lg text-center mb-4">
         <h1 className="text-xl font-bold">MEDICAL INFORMATION</h1>
-     
+        <p className="text-sm">EMERGENCY USE ONLY</p>
       </div>
       
-      {/* Patient Info */}
-      <Card className="w-full mb-8">
-        <CardHeader className="flex flex-col items-start px-6 py-4 bg-blue-50">
-          <h2 className="text-2xl font-bold">Patient Information</h2>
+      {/* Patient Basic Information Card - Compact Design */}
+      <Card className="w-full mb-4 shadow-sm">
+        <CardHeader className="bg-blue-50 py-2 px-4">
+          <h2 className="text-xl font-bold">Patient: {medicalInfo.firstName} {medicalInfo.lastName}</h2>
         </CardHeader>
-        <Divider />
-        <CardBody className="px-6 py-8">
-          <h2 className="text-3xl font-bold mb-8 text-primary">{medicalInfo.firstName} {medicalInfo.lastName}</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              {medicalInfo.birthDate && (
-                <div>
-                  <p className="text-gray-500 text-sm">Date of Birth</p>
-                  <p className="text-lg font-medium">{medicalInfo.birthDate}</p>
-                </div>
-              )}
-              
-              {medicalInfo.language && (
-                <div>
-                  <p className="text-gray-500 text-sm">Primary Language</p>
-                  <p className="text-lg font-medium capitalize">{medicalInfo.language}</p>
-                </div>
-              )}
-              
-              {medicalInfo.bloodType && (
-                <div>
-                  <p className="text-gray-500 text-sm">Blood Type</p>
-                  <p className="text-lg font-medium">{medicalInfo.bloodType}</p>
-                </div>
-              )}
-            </div>
+        <CardBody className="px-4 py-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+            {medicalInfo.birthDate && (
+              <div>
+                <p className="text-gray-500 font-medium">Date of Birth</p>
+                <p>{medicalInfo.birthDate}</p>
+              </div>
+            )}
             
-            <div className="space-y-4">
-              {medicalInfo.height && (
-                <div>
-                  <p className="text-gray-500 text-sm">Height</p>
-                  <p className="text-lg font-medium">{medicalInfo.height} cm</p>
-                </div>
-              )}
-              
-              {medicalInfo.weight && (
-                <div>
-                  <p className="text-gray-500 text-sm">Weight</p>
-                  <p className="text-lg font-medium">{medicalInfo.weight} kg</p>
-                </div>
-              )}
-              
-              {medicalInfo.isOrganDonor !== undefined && (
-                <div>
-                  <p className="text-gray-500 text-sm">Organ Donor Status</p>
-                  <p className="text-lg font-medium">{medicalInfo.isOrganDonor ? "Yes" : "No"}</p>
-                </div>
-              )}
-              
-              {medicalInfo.isPregnant !== null && (
-                <div>
-                  <p className="text-gray-500 text-sm">Pregnancy Status</p>
-                  <p className="text-lg font-medium">
-                    {medicalInfo.isPregnant === true ? "Yes" : 
-                     medicalInfo.isPregnant === false ? "No" : "Not Applicable"}
-                  </p>
-                </div>
-              )}
-            </div>
+            {medicalInfo.bloodType && (
+              <div>
+                <p className="text-gray-500 font-medium">Blood Type</p>
+                <p className="font-bold text-red-600">{medicalInfo.bloodType}</p>
+              </div>
+            )}
+            
+            {medicalInfo.height && (
+              <div>
+                <p className="text-gray-500 font-medium">Height</p>
+                <p>{medicalInfo.height} cm</p>
+              </div>
+            )}
+            
+            {medicalInfo.weight && (
+              <div>
+                <p className="text-gray-500 font-medium">Weight</p>
+                <p>{medicalInfo.weight} kg</p>
+              </div>
+            )}
+          </div>
+          
+          <div className="flex flex-wrap gap-2 mt-3">
+            {medicalInfo.isOrganDonor && (
+              <Chip color="primary" size="sm" variant="flat">Organ Donor</Chip>
+            )}
+            
+            {medicalInfo.isPregnant === true && (
+              <Chip color="warning" size="sm" variant="flat">Pregnant</Chip>
+            )}
+            
+            {medicalInfo.language && (
+              <Chip color="default" size="sm" variant="flat">Language: {medicalInfo.language}</Chip>
+            )}
           </div>
         </CardBody>
       </Card>
       
-      {/* Critical Medical Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        {/* Allergies */}
-        <Card className="w-full">
-          <CardHeader className="flex flex-col items-start px-6 py-4 bg-red-50">
-            <h2 className="text-xl font-bold text-red-600">Allergies</h2>
+      {/* Critical Medical Info in a 2-column layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {/* Allergies - Simplified */}
+        <Card className="w-full shadow-sm">
+          <CardHeader className="bg-red-50 py-2 px-4">
+            <h2 className="text-lg font-bold text-red-600">Allergies</h2>
           </CardHeader>
-          <Divider />
-          <CardBody className="px-6 py-6">
+          <CardBody className="px-4 py-3">
             {medicalInfo.allergies && medicalInfo.allergies.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
+              <ul className="list-disc pl-5 space-y-1 text-sm">
                 {medicalInfo.allergies.map((allergy, index) => (
-                  <Chip key={index} color="danger" variant="flat" size="lg">{allergy}</Chip>
+                  <li key={index}>{allergy}</li>
                 ))}
-              </div>
+              </ul>
             ) : (
-              <p className="text-gray-500">No allergies listed</p>
+              <p className="text-gray-500 text-sm">No allergies listed</p>
             )}
           </CardBody>
         </Card>
         
-        {/* Medical Conditions */}
-        <Card className="w-full">
-          <CardHeader className="flex flex-col items-start px-6 py-4 bg-purple-50">
-            <h2 className="text-xl font-bold text-purple-600">Medical Conditions</h2>
+        {/* Medical Conditions - Simplified */}
+        <Card className="w-full shadow-sm">
+          <CardHeader className="bg-purple-50 py-2 px-4">
+            <h2 className="text-lg font-bold text-purple-600">Medical Conditions</h2>
           </CardHeader>
-          <Divider />
-          <CardBody className="px-6 py-6">
+          <CardBody className="px-4 py-3">
             {medicalInfo.conditions && medicalInfo.conditions.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
+              <ul className="list-disc pl-5 space-y-1 text-sm">
                 {medicalInfo.conditions.map((condition, index) => (
-                  <Chip key={index} color="secondary" variant="flat" size="lg">{condition}</Chip>
+                  <li key={index}>{condition}</li>
                 ))}
-              </div>
+              </ul>
             ) : (
-              <p className="text-gray-500">No medical conditions listed</p>
+              <p className="text-gray-500 text-sm">No medical conditions listed</p>
             )}
           </CardBody>
         </Card>
       </div>
       
-      {/* Medications */}
-      <Card className="w-full mb-8">
-        <CardHeader className="flex flex-col items-start px-6 py-4 bg-blue-50">
-          <h2 className="text-xl font-bold text-blue-600">Current Medications</h2>
+      {/* Medications - Simplified */}
+      <Card className="w-full mb-4 shadow-sm">
+        <CardHeader className="bg-blue-50 py-2 px-4">
+          <h2 className="text-lg font-bold text-blue-600">Current Medications</h2>
         </CardHeader>
-        <Divider />
-        <CardBody className="px-6 py-6">
+        <CardBody className="px-4 py-3">
           {medicalInfo.medications && medicalInfo.medications.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
               {medicalInfo.medications.map((medication, index) => (
-                <Chip key={index} color="primary" variant="flat" size="lg">{medication}</Chip>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500">No medications listed</p>
-          )}
-        </CardBody>
-      </Card>
-      
-      {/* Emergency Contacts */}
-      <Card className="w-full mb-8">
-        <CardHeader className="flex flex-col items-start px-6 py-4 bg-amber-50">
-          <h2 className="text-xl font-bold text-amber-600">Emergency Contacts</h2>
-        </CardHeader>
-        <Divider />
-        <CardBody className="px-6 py-6">
-          {medicalInfo.emergencyContacts && medicalInfo.emergencyContacts.length > 0 ? (
-            <div className="space-y-4">
-              {medicalInfo.emergencyContacts.map((contact, index) => (
-                <div key={index} className="p-3 bg-default-100 rounded-md">
-                  <p className="font-medium text-lg">{contact.name}</p>
-                  <p className="text-default-500">{contact.relationship}</p>
-                  <p className="text-medium mt-1">{contact.phone}</p>
+                <div key={index} className="text-sm p-2 bg-gray-50 rounded">
+                  {medication}
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No emergency contacts listed</p>
+            <p className="text-gray-500 text-sm">No medications listed</p>
           )}
         </CardBody>
       </Card>
       
-      {/* Additional Notes */}
+      {/* Emergency Contacts - Table format for better compactness */}
+      <Card className="w-full mb-4 shadow-sm">
+        <CardHeader className="bg-amber-50 py-2 px-4">
+          <h2 className="text-lg font-bold text-amber-600">Emergency Contacts</h2>
+        </CardHeader>
+        <CardBody className="px-2 py-2">
+          {medicalInfo.emergencyContacts && medicalInfo.emergencyContacts.length > 0 ? (
+            <Table 
+              aria-label="Emergency contacts"
+              classNames={{
+                table: "min-w-full",
+                th: "text-xs bg-default-100",
+                td: "py-2 text-sm"
+              }}
+              removeWrapper
+            >
+              <TableHeader>
+                <TableColumn>NAME</TableColumn>
+                <TableColumn>RELATIONSHIP</TableColumn>
+                <TableColumn>PHONE</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {medicalInfo.emergencyContacts.map((contact, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{contact.name}</TableCell>
+                    <TableCell>{contact.relationship}</TableCell>
+                    <TableCell>{contact.phone}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <p className="text-gray-500 text-sm p-2">No emergency contacts listed</p>
+          )}
+        </CardBody>
+      </Card>
+      
+      {/* Additional Notes - Only if present */}
       {medicalInfo.additionalNotes && (
-        <Card className="w-full mb-8">
-          <CardHeader className="flex flex-col items-start px-6 py-4 bg-gray-50">
-            <h2 className="text-xl font-bold">Additional Information</h2>
+        <Card className="w-full mb-4 shadow-sm">
+          <CardHeader className="bg-gray-50 py-2 px-4">
+            <h2 className="text-lg font-bold">Additional Information</h2>
           </CardHeader>
-          <Divider />
-          <CardBody className="px-6 py-6">
-            <p className="whitespace-pre-line">{medicalInfo.additionalNotes}</p>
+          <CardBody className="px-4 py-3">
+            <p className="text-sm whitespace-pre-line">{medicalInfo.additionalNotes}</p>
           </CardBody>
         </Card>
       )}
       
-      <div className="text-center text-sm text-gray-500 mt-8">
+      {/* Footer */}
+      <div className="text-center text-xs text-gray-500 mt-4">
         <p>Medical information provided by DoctQR</p>
-        <p className="mt-1">This information was shared by the patient for emergency purposes</p>
+        <p>This information was shared by the patient for emergency purposes</p>
       </div>
     </div>
   );
