@@ -30,6 +30,8 @@ import {
   DocumentDuplicateIcon 
 } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
+import PrintableMedicalCard from "@/components/PrintableMedicalCard";
+import { CreditCardIcon } from "@heroicons/react/24/outline";
 
 // Import QRCode with SSR disabled
 const QRCode = dynamic(() => import("@/components/QRCode"), {
@@ -430,121 +432,143 @@ const handleSaveChanges = async () => {
   };
 
   // Shared Link Section Component
-  const SharedLinkSection = () => {
-    if (!sharedLink) return null;
-    
-    // Create the full absolute URL
-    const baseUrl = "https://www.doctqr.link";
-    const absoluteUrl = `${baseUrl}${sharedLink}`;
-    
-    return (
-      <Card className="w-full mb-8">
-        <CardHeader className="flex flex-col items-start px-6 py-4 bg-green-50">
-          <div className="flex items-center gap-2">
-            <QrCodeIcon className="w-5 h-5 text-green-600" />
-            <h2 className="text-xl font-bold text-green-600">Your Medical Information Link</h2>
-          </div>
-          <p className="text-default-500 text-sm">Share this link to provide access to your medical information</p>
-        </CardHeader>
-        <Divider />
-        <CardBody className="px-6 py-6">
-          <Tabs 
-            aria-label="Medical information sharing options" 
-            color="primary"
-            variant="underlined"
-            classNames={{
-              tabList: "gap-6",
-            }}
+// This is part of the SharedLinkSection component in app/profile/page.tsx
+// You would replace the existing SharedLinkSection with this version
+
+const SharedLinkSection = () => {
+  if (!sharedLink) return null;
+  
+  // Create the full absolute URL
+  const baseUrl = "https://www.doctqr.link";
+  const absoluteUrl = `${baseUrl}${sharedLink}`;
+  
+  return (
+    <Card className="w-full mb-8">
+      <CardHeader className="flex flex-col items-start px-6 py-4 bg-green-50">
+        <div className="flex items-center gap-2">
+          <QrCodeIcon className="w-5 h-5 text-green-600" />
+          <h2 className="text-xl font-bold text-green-600">Your Medical Information Link</h2>
+        </div>
+        <p className="text-default-500 text-sm">Share this link to provide access to your medical information</p>
+      </CardHeader>
+      <Divider />
+      <CardBody className="px-6 py-6">
+        <Tabs 
+          aria-label="Medical information sharing options" 
+          color="primary"
+          variant="underlined"
+          classNames={{
+            tabList: "gap-6",
+          }}
+        >
+          <Tab 
+            key="link" 
+            title={
+              <div className="flex items-center gap-2">
+                <LinkIcon className="w-4 h-4" />
+                <span>Share Link</span>
+              </div>
+            }
           >
-            <Tab 
-              key="link" 
-              title={
-                <div className="flex items-center gap-2">
-                  <LinkIcon className="w-4 h-4" />
-                  <span>Share Link</span>
-                </div>
-              }
-            >
-              <div className="py-4">
-                <p className="text-sm text-gray-600 mb-4">
-                  This link provides access to your medical information. You can share it with healthcare providers 
-                  for quick access to your critical medical details.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <Input
-                    value={absoluteUrl}
-                    readOnly
-                    size="lg"
-                    className="flex-1"
-                    startContent={<LinkIcon className="w-5 h-5 text-default-400" />}
-                  />
-                  <Button
-                    color="primary"
-                    size="lg"
-                    startContent={<DocumentDuplicateIcon className="w-5 h-5" />}
-                    onClick={() => {
-                      navigator.clipboard.writeText(absoluteUrl);
-                      setLinkCopied(true);
-                      
-                      setTimeout(() => {
-                        setLinkCopied(false);
-                      }, 2000);
-                    }}
-                  >
-                    {linkCopied ? "Copied!" : "Copy Link"}
-                  </Button>
-                </div>
-                
-                <div className="mt-4">
-                  <Button
-                    color="secondary"
-                    variant="ghost"
-                    size="md"
-                    as="a"
-                    href={absoluteUrl}
-                    target="_blank"
-                    startContent={<QrCodeIcon className="w-5 h-5" />}
-                  >
-                    View Your Public Medical Profile
-                  </Button>
-                </div>
+            <div className="py-4">
+              <p className="text-sm text-gray-600 mb-4">
+                This link provides access to your medical information. You can share it with healthcare providers 
+                for quick access to your critical medical details.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Input
+                  value={absoluteUrl}
+                  readOnly
+                  size="lg"
+                  className="flex-1"
+                  startContent={<LinkIcon className="w-5 h-5 text-default-400" />}
+                />
+                <Button
+                  color="primary"
+                  size="lg"
+                  startContent={<DocumentDuplicateIcon className="w-5 h-5" />}
+                  onClick={() => {
+                    navigator.clipboard.writeText(absoluteUrl);
+                    setLinkCopied(true);
+                    
+                    setTimeout(() => {
+                      setLinkCopied(false);
+                    }, 2000);
+                  }}
+                >
+                  {linkCopied ? "Copied!" : "Copy Link"}
+                </Button>
               </div>
-            </Tab>
-            
-            <Tab 
-              key="qr-code" 
-              title={
-                <div className="flex items-center gap-2">
-                  <QrCodeIcon className="w-4 h-4" />
-                  <span>QR Code</span>
-                </div>
-              }
-            >
-              <div className="py-6 flex flex-col gap-4">
-                <p className="text-sm text-gray-600">
-                  Print this QR code to carry with you in your wallet or on your medical ID. Emergency personnel 
-                  can scan this code to access your critical medical information instantly.
-                </p>
-                
-                <div className="flex justify-center mt-2">
-                  <QRCode 
-                    url={absoluteUrl} 
-                    size={200} 
-                    title={`${user?.firstName} ${user?.lastName} - Medical Information`} 
-                  />
-                </div>
-                
-                <p className="text-xs text-center text-gray-500 mt-2">
-                  Click the buttons above to print or download your medical QR code
-                </p>
+              
+              <div className="mt-4">
+                <Button
+                  color="secondary"
+                  variant="ghost"
+                  size="md"
+                  as="a"
+                  href={absoluteUrl}
+                  target="_blank"
+                  startContent={<QrCodeIcon className="w-5 h-5" />}
+                >
+                  View Your Public Medical Profile
+                </Button>
               </div>
-            </Tab>
-          </Tabs>
-        </CardBody>
-      </Card>
-    );
-  };
+            </div>
+          </Tab>
+          
+          <Tab 
+            key="qr-code" 
+            title={
+              <div className="flex items-center gap-2">
+                <QrCodeIcon className="w-4 h-4" />
+                <span>QR Code</span>
+              </div>
+            }
+          >
+            <div className="py-6 flex flex-col gap-4">
+              <p className="text-sm text-gray-600">
+                Print this QR code to carry with you in your wallet or on your medical ID. Emergency personnel 
+                can scan this code to access your critical medical information instantly.
+              </p>
+              
+              <div className="flex justify-center mt-2">
+                <QRCode 
+                  url={absoluteUrl} 
+                  size={200} 
+                  title={`${user?.firstName} ${user?.lastName} - Medical Information`} 
+                />
+              </div>
+              
+              <p className="text-xs text-center text-gray-500 mt-2">
+                Click the buttons above to print or download your medical QR code
+              </p>
+            </div>
+          </Tab>
+          
+          {/* New Emergency Card Tab */}
+          <Tab 
+            key="emergency-card" 
+            title={
+              <div className="flex items-center gap-2">
+                <CreditCardIcon className="w-4 h-4" />
+                <span>Emergency Card</span>
+              </div>
+            }
+          >
+            <div className="py-4">
+              <PrintableMedicalCard 
+                url={absoluteUrl}
+                firstName={user?.firstName}
+                lastName={user?.lastName}
+              />
+            </div>
+          </Tab>
+        </Tabs>
+      </CardBody>
+    </Card>
+  );
+};
 
   if (loading) {
     return (

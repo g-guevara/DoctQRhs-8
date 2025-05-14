@@ -39,10 +39,10 @@ const HowItWorksPage = () => {
               <p>Sign up with your email to create your personal DoctQR profile.</p>
               <div className="flex justify-center mt-4">
                 <Image 
-                  src="/img/signup-illustration.png" 
+                  src="/img/log-in.png" 
                   alt="Sign up illustration" 
-                  width={150} 
-                  height={150}
+                  width={80} 
+                  height={80}
                   className="opacity-80"
                   // This is a placeholder - you may need to update with actual images
                 />
@@ -59,13 +59,13 @@ const HowItWorksPage = () => {
               <h3 className="text-xl font-bold">Enter Medical Information</h3>
             </CardHeader>
             <CardBody className="text-center">
-              <p>Add your allergies, conditions, medications, and emergency contacts.</p>
+              <p>Add your conditions, medications, and emergency contacts.</p>
               <div className="flex justify-center mt-4">
                 <Image 
-                  src="/img/medical-form.png" 
+                  src="/img/edit.png" 
                   alt="Medical form illustration" 
-                  width={150} 
-                  height={150}
+                  width={80} 
+                  height={80}
                   className="opacity-80"
                   // This is a placeholder - you may need to update with actual images
                 />
@@ -85,10 +85,10 @@ const HowItWorksPage = () => {
               <p>Download and print your personalized QR code template.</p>
               <div className="flex justify-center mt-4">
                 <Image 
-                  src="/img/print-qr.png" 
+                  src="/img/printer.png" 
                   alt="Print QR illustration" 
-                  width={150} 
-                  height={150}
+                  width={80} 
+                  height={80}
                   className="opacity-80"
                   // This is a placeholder - you may need to update with actual images
                 />
@@ -102,16 +102,16 @@ const HowItWorksPage = () => {
               <div className="bg-primary-100 rounded-full w-14 h-14 flex items-center justify-center mb-4">
                 <span className="text-primary font-bold text-xl">4</span>
               </div>
-              <h3 className="text-xl font-bold">Fold & Carry</h3>
+              <h3 className="text-xl font-bold">Share</h3>
             </CardHeader>
             <CardBody className="text-center">
-              <p>Cut, fold, and insert into your wallet like a regular card.</p>
+              <p>Anywhere in the word, for free, 24/7</p>
               <div className="flex justify-center mt-4">
                 <Image 
-                  src="/img/wallet-card.png" 
-                  alt="Wallet card illustration" 
-                  width={150} 
-                  height={150} 
+                  src="/img/world-wide-web.png" 
+                  alt="world illustration" 
+                  width={80} 
+                  height={80} 
                   className="opacity-80"
                   // This is a placeholder - you may need to update with actual images
                 />
@@ -123,7 +123,7 @@ const HowItWorksPage = () => {
 
       {/* Folding Instructions */}
       <section className="mb-20 bg-gray-50 p-8 rounded-xl">
-        <h2 className="text-3xl font-bold text-center mb-8">How to Fold Your DoctQR Card</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">How to Fold Your DoctQR Card Option</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
@@ -131,8 +131,8 @@ const HowItWorksPage = () => {
               <Image 
                 src="/img/cut-template.png" 
                 alt="Cut the template" 
-                width={180} 
-                height={180}
+                width={80} 
+                height={80}
                 className="object-contain"
                 // This is a placeholder - you may need to update with actual images
               />
