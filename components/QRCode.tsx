@@ -14,6 +14,9 @@ interface QRCodeProps {
 const QRCode: React.FC<QRCodeProps> = ({ url, size = 200, title = "Medical Information" }) => {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   
+  // Ensure URL is absolute - this is the key change
+  const absoluteUrl = url.startsWith('http') ? url : `https://www.doctqr.link${url.startsWith('/') ? '' : '/'}${url}`;
+  
   const handlePrint = () => {
     const qrCodeElement = qrCodeRef.current;
     if (!qrCodeElement) return;
@@ -142,7 +145,7 @@ const QRCode: React.FC<QRCodeProps> = ({ url, size = 200, title = "Medical Infor
     <div className="flex flex-col items-center gap-4">
       <div className="bg-white p-4 rounded-xl shadow-sm" ref={qrCodeRef}>
         <QRCodeReact 
-          value={url} 
+          value={absoluteUrl} 
           size={size} 
           level="H" // High error correction
           bgColor="#FFFFFF"

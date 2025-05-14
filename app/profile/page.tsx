@@ -289,7 +289,11 @@ export default function ProfilePage() {
 
   const handleCopyLink = () => {
     if (sharedLink) {
-      navigator.clipboard.writeText(sharedLink);
+      // Create the full absolute URL
+      const baseUrl = "https://www.doctqr.link";
+      const absoluteUrl = `${baseUrl}${sharedLink}`;
+      
+      navigator.clipboard.writeText(absoluteUrl);
       setLinkCopied(true);
       
       setTimeout(() => {
@@ -429,6 +433,10 @@ const handleSaveChanges = async () => {
   const SharedLinkSection = () => {
     if (!sharedLink) return null;
     
+    // Create the full absolute URL
+    const baseUrl = "https://www.doctqr.link";
+    const absoluteUrl = `${baseUrl}${sharedLink}`;
+    
     return (
       <Card className="w-full mb-8">
         <CardHeader className="flex flex-col items-start px-6 py-4 bg-green-50">
@@ -465,7 +473,7 @@ const handleSaveChanges = async () => {
                 
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Input
-                    value={sharedLink}
+                    value={absoluteUrl}
                     readOnly
                     size="lg"
                     className="flex-1"
@@ -475,7 +483,14 @@ const handleSaveChanges = async () => {
                     color="primary"
                     size="lg"
                     startContent={<DocumentDuplicateIcon className="w-5 h-5" />}
-                    onClick={handleCopyLink}
+                    onClick={() => {
+                      navigator.clipboard.writeText(absoluteUrl);
+                      setLinkCopied(true);
+                      
+                      setTimeout(() => {
+                        setLinkCopied(false);
+                      }, 2000);
+                    }}
                   >
                     {linkCopied ? "Copied!" : "Copy Link"}
                   </Button>
@@ -487,7 +502,7 @@ const handleSaveChanges = async () => {
                     variant="ghost"
                     size="md"
                     as="a"
-                    href={sharedLink}
+                    href={absoluteUrl}
                     target="_blank"
                     startContent={<QrCodeIcon className="w-5 h-5" />}
                   >
@@ -514,7 +529,7 @@ const handleSaveChanges = async () => {
                 
                 <div className="flex justify-center mt-2">
                   <QRCode 
-                    url={sharedLink} 
+                    url={absoluteUrl} 
                     size={200} 
                     title={`${user?.firstName} ${user?.lastName} - Medical Information`} 
                   />
