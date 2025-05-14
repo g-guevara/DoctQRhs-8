@@ -1,8 +1,9 @@
-// File: app/api/medical-info/[id]/route.js
-import dbConnect from '../../../../models/db';
-import User from '../../../../models/User';
-import MedicalInfo from '../../../../models/MedicalInfo';
+// File: app/api/medical-info/route.js
+import dbConnect from '../../../models/db';
+import User from '../../../models/User';
+import MedicalInfo from '../../../models/MedicalInfo';
 
+// Rest of your route handler code
 export async function GET(req, { params }) {
   try {
     // Connect to the database
@@ -44,7 +45,7 @@ export async function GET(req, { params }) {
       { status: 200 }
     );
     
-  } catch (error) {
+  } catch (error) { 
     console.error('Error fetching medical info:', error);
     return new Response(
       JSON.stringify({ error: 'Error retrieving medical information', details: error.message }), 
