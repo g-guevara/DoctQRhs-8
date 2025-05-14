@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Link Invitación",
-  description: "Crea una pagina web con Guillermo Guevara.",
+  name: "DoctQR - Med ID",
+  description: "Carry Your Medical Info Everywhere",
   navItems: [
     {
       label: "Home",

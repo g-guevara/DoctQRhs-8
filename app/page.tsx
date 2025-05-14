@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { styles } from "@/styles/doctqr-styles";
+import { title } from "@/components/primitives";
 
 export default function DoctQRPage() {
   return (
@@ -18,11 +19,9 @@ export default function DoctQRPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <div className="mb-6">
-                <h2 className="text-4xl font-bold leading-tight text-gray-800">
-                  Diseases,<br/>
-                  Discapatitations,<br/>
-                  Special conditions.
-                </h2>
+                            <h2 className={`${title({ color: "blue" })} mb-4`}>
+                              Carry Your Medical Info Everywhere
+                            </h2>
               </div>
               <p className="text-lg mb-6">All that information and much more in one place.</p>
               <div className="flex gap-4">
@@ -52,7 +51,7 @@ export default function DoctQRPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold">Uses of <u>DOCTQR</u></h2>
             <p className="text-gray-600 mt-2">
-              Multiples formas para facilitarte la comunicacion de tu ficha medica
+              Multiple ways to facilitate the communication of your medical record
             </p>
           </div>
           
@@ -67,9 +66,9 @@ export default function DoctQRPage() {
                   height={80}
                 />
               </div>
-              <h4 className="text-xl font-semibold text-center mb-2">Medical ocations</h4>
+              <h4 className="text-xl font-semibold text-center mb-2">Medical Consultations</h4>
               <p className="text-gray-600 text-center">
-                ¿Nuevo Doctor? No hay problema. Con DoctQR tu nuevo doctor conseguira todo lo que necesita escaneando el codigo
+                New doctor? No problem. With DoctQR your new doctor will get everything they need by scanning the code
               </p>
             </div>
             
@@ -85,7 +84,7 @@ export default function DoctQRPage() {
               </div>
               <h4 className="text-xl font-semibold text-center mb-2">Emergency</h4>
               <p className="text-gray-600 text-center">
-                En situaciones dificiles, DoctQR puede facilitar tu informacion medica en el instante
+                In difficult situations, DoctQR can provide your medical information instantly
               </p>
             </div>
             
@@ -101,7 +100,7 @@ export default function DoctQRPage() {
               </div>
               <h4 className="text-xl font-semibold text-center mb-2">Trips</h4>
               <p className="text-gray-600 text-center">
-                Transportar alimentos y medicamentos especiales puede ser complicado. DoctQR le dara la seriedad necesaria a la situacion.
+                Transporting special foods and medications can be complicated. DoctQR will give the necessary seriousness to the situation.
               </p>
             </div>
             
@@ -115,9 +114,9 @@ export default function DoctQRPage() {
                   height={80}
                 />
               </div>
-              <h4 className="text-xl font-semibold text-center mb-2">Schoolar</h4>
+              <h4 className="text-xl font-semibold text-center mb-2">School</h4>
               <p className="text-gray-600 text-center">
-                Algunos niños se les olvida los nombres de los medicamentos que necesitan. Con DoctQR sera mas facil dar a conocer si condicion especial
+                Some children forget the names of the medications they need. With DoctQR it will be easier to make their special condition known
               </p>
             </div>
           </div>
@@ -133,9 +132,12 @@ export default function DoctQRPage() {
                 <h2 className="text-3xl font-bold text-center md:text-left">About</h2>
               </div>
               <p className="text-gray-600">
-                DoctQR is a new way of being able to access medical data through a paper folded in any type of cards. The porpuse of this plattaform is that for those who have health complications, they can make their condition known more easily, providing all kinds of medical parameters with the QR code.
-                <br/><br/>
-                To start with you have to do is create an account, print your QR code and fold the page to fit your cards!
+
+  <strong>DoctQR</strong> is an exciting and innovative solution that transforms how we access and share medical information — all through a simple, scannable QR code. Whether you're managing a chronic condition, have allergies, or simply want to be prepared for emergencies, <strong>DoctQR</strong> empowers you to make your essential medical data instantly available when it matters most. Our platform was created with one clear mission: to make health information accessible, fast, and reliable — anytime, anywhere.
+  <br/><br/>
+  With just a quick scan, first responders, doctors, or even bystanders can access critical health details that could save lives. Best of all, <strong>DoctQR</strong> is completely <strong>free for life</strong> and designed to work seamlessly across the globe. Because everyone deserves safe and accessible healthcare — no matter where they are.
+
+
               </p>
             </div>
             <div className="flex justify-center">

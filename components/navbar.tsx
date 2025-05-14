@@ -56,7 +56,7 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">Link de invitación</p>
+            <p className="font-bold text-inherit">DoctQR</p>
           </NextLink>
         </NavbarBrand>
       </NavbarContent>
@@ -118,26 +118,27 @@ export const Navbar = () => {
           </NavbarItem>
           
           {/* Language switcher */}
-          <NavbarItem className="ml-4">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button 
-                  variant="light" 
-                  className="min-w-0 px-3"
-                >
-                  {selectedLanguage}
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu 
-                aria-label="Language options"
-                onAction={(key) => setSelectedLanguage(key.toString())}
-              >
-                <DropdownItem key="EN">English</DropdownItem>
-                <DropdownItem key="ES">Español</DropdownItem>
-                <DropdownItem key="FR">Français</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </NavbarItem>
+<NavbarItem className="ml-4">
+  <Dropdown>
+    <DropdownTrigger>
+      <Button 
+        variant="light" 
+        className="min-w-0 px-3 border-2 border-gray-300"
+      >
+        {selectedLanguage}
+      </Button>
+    </DropdownTrigger>
+    <DropdownMenu 
+      aria-label="Language options"
+      onAction={(key) => setSelectedLanguage(key.toString())}
+    >
+      <DropdownItem key="EN">English</DropdownItem>
+      <DropdownItem key="ES">Español</DropdownItem>
+      <DropdownItem key="FR">Français</DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
+</NavbarItem>
+
           
           {/* Dark mode theme switcher */}
           <NavbarItem className="ml-3">
