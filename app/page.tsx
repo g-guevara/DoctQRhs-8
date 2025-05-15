@@ -24,14 +24,18 @@ export default function DoctQRPage() {
                             </h2>
               </div>
               <p className="text-lg mb-6">All that information and much more in a simple QR.</p>
-              <div className="flex gap-4">
-                <Link href="/Sign_in">
-                  <Button color="primary" size="lg">Sign in</Button>
-                </Link>
-                <Link href="/Sign_up">
-                  <Button color="primary" size="lg">Sign up</Button>
-                </Link>
-              </div>
+<div className="flex gap-4">
+  <Link href="/Sign_in" legacyBehavior>
+    <a>
+      <Button color="primary" size="lg">Sign in</Button>
+    </a>
+  </Link>
+  <Link href="/Sign_up" legacyBehavior>
+    <a>
+      <Button color="primary" size="lg">Sign up</Button>
+    </a>
+  </Link>
+</div>
             </div>
             <div className="flex justify-center">
               <Image 
