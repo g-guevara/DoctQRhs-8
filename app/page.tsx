@@ -27,13 +27,13 @@ export default function DoctQRPage() {
 <div className="flex gap-4">
   <a 
     href="/Sign_in" 
-    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md text-lg"
+    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full text-lg"
   >
     Sign in
   </a>
   <a 
     href="/Sign_up" 
-    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md text-lg"
+    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full text-lg"
   >
     Sign up
   </a>
