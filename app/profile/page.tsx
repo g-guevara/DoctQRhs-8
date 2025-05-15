@@ -27,11 +27,13 @@ import {
   ArrowRightOnRectangleIcon,
   QrCodeIcon, 
   LinkIcon, 
-  DocumentDuplicateIcon 
+  DocumentDuplicateIcon, 
+  TagIcon
 } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import PrintableMedicalCard from "@/components/PrintableMedicalCard";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
+import PrintableQRStickers from "@/components/PrintableQRStickers";
 
 // Import QRCode with SSR disabled
 const QRCode = dynamic(() => import("@/components/QRCode"), {
@@ -564,6 +566,28 @@ const SharedLinkSection = () => {
               />
             </div>
           </Tab>
+
+  {/* New print stickers */}
+          <Tab 
+  key="stickers" 
+  title={
+    <div className="flex items-center gap-2">
+      <TagIcon className="w-4 h-4" />
+      <span>QR Stickers</span>
+    </div>
+  }
+>
+  <div className="py-4">
+    <PrintableQRStickers 
+      url={absoluteUrl}
+      firstName={user?.firstName}
+      lastName={user?.lastName}
+    />
+  </div>
+</Tab>
+
+
+
         </Tabs>
       </CardBody>
     </Card>

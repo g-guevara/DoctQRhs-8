@@ -23,13 +23,13 @@ export default function DoctQRPage() {
                               Carry Your Medical Info Everywhere
                             </h2>
               </div>
-              <p className="text-lg mb-6">All that information and much more in one place.</p>
+              <p className="text-lg mb-6">All that information and much more in a simple QR.</p>
               <div className="flex gap-4">
                 <Link href="/Sign_in">
                   <Button color="primary" size="lg">Sign in</Button>
                 </Link>
-                <Link href="/Log_in">
-                  <Button color="primary" size="lg">Log in</Button>
+                <Link href="/Sign_up">
+                  <Button color="primary" size="lg">Sign up</Button>
                 </Link>
               </div>
             </div>
