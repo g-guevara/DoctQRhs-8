@@ -33,326 +33,379 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
       ? `${firstName.charAt(0)}${lastName.charAt(0)}`
       : "";
     
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>DoctQR - Emergency Medical Card</title>
-          <style>
-            /* Critical: Force background colors to print */
-            * {
-              -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
-              color-adjust: exact !important;                 /* Firefox 48 – 96 */
-              print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
-            }
-            
-            @page {
-              size: letter;
-              margin: 0.5in;
-            }
-            
-            @media print {
-              body {
-                margin: 0;
-                padding: 0;
-              }
-              .page {
-                width: 8.5in;
-                height: 11in;
-                position: relative;
-                padding: 0.5in;
-                box-sizing: border-box;
-              }
-              .instructions {
-                margin-bottom: 20px;
-                font-family: Arial, sans-serif;
-              }
-              .card-container {
-                width: 3.375in;
-                height: 2.125in;
-                margin: 0 auto;
-                position: relative;
-                border: 1px dashed #ccc;
-                padding: 5px;
-              }
-              .card {
-                width: 3.375in;
-                height: 2.125in;
-                background-color: #FF0000 !important; /* Force red background */
-                color: white !important;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px;
-                box-sizing: border-box;
-                position: relative;
-                overflow: hidden;
-              }
-              .med-info {
-                font-size: 42px;
-                font-weight: bold;
-                font-family: Arial, sans-serif;
-                line-height: 1;
-                padding-left: 15px;
-                color: white !important;
-              }
-              .qr-container {
-                background: white !important;
-                padding: 10px;
-                margin-right: 15px;
-                width: 150px;
-                height: 150px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              }
-              .qr-image {
-                width: 150px;
-                height: 150px;
-              }
-              .corner {
-                position: absolute;
-                width: 25px;
-                height: 25px;
-                border: 5px solid white !important;
-              }
-              .top-left {
-                top: 10px;
-                left: 10px;
-                border-right: none !important;
-                border-bottom: none !important;
-              }
-              .top-right {
-                top: 10px;
-                right: 10px;
-                border-left: none !important;
-                border-bottom: none !important;
-              }
-              .bottom-left {
-                bottom: 10px;
-                left: 10px;
-                border-right: none !important;
-                border-top: none !important;
-              }
-              .bottom-right {
-                bottom: 10px;
-                right: 10px;
-                border-left: none !important;
-                border-top: none !important;
-              }
-              .initials {
-                position: absolute;
-                right: 10px;
-                bottom: 5px;
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.6) !important;
-              }
-              .no-print {
-                display: none;
-              }
-              .cutting-lines {
-                border: 1px dashed #333;
-                margin: 10px;
-              }
-              .print-note {
-                background-color: #f8f9fa !important;
-                border: 1px solid #ddd !important;
-                padding: 10px !important;
-                margin-bottom: 20px !important;
-                font-family: Arial, sans-serif !important;
-                font-size: 14px !important;
-                color: #333 !important;
-              }
-              .print-note strong {
-                color: #d00 !important;
-                font-weight: bold !important;
-              }
-            }
-            @media screen {
-              body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background: #f5f5f5;
-              }
-              .page {
-                background: white;
-                width: 8.5in;
-                height: auto;
-                margin: 0 auto;
-                padding: 0.5in;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-              }
-              .instructions {
-                margin-bottom: 20px;
-                max-width: 600px;
-              }
-              .card-container {
-                width: 3.375in;
-                height: 2.125in;
-                margin: 0 auto;
-                position: relative;
-                border: 1px dashed #ccc;
-                padding: 5px;
-              }
-              .card {
-                width: 3.375in;
-                height: 2.125in;
-                background-color: #FF0000;
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px;
-                box-sizing: border-box;
-                position: relative;
-                overflow: hidden;
-              }
-              .med-info {
-                font-size: 42px;
-                font-weight: bold;
-                line-height: 1;
-                padding-left: 15px;
-              }
-              .qr-container {
-                background: white;
-                padding: 10px;
-                margin-right: 15px;
-                width: 150px;
-                height: 150px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              }
-              .qr-image {
-                width: 150px;
-                height: 150px;
-              }
-              .corner {
-                position: absolute;
-                width: 25px;
-                height: 25px;
-                border: 5px solid white;
-              }
-              .top-left {
-                top: 10px;
-                left: 10px;
-                border-right: none;
-                border-bottom: none;
-              }
-              .top-right {
-                top: 10px;
-                right: 10px;
-                border-left: none;
-                border-bottom: none;
-              }
-              .bottom-left {
-                bottom: 10px;
-                left: 10px;
-                border-right: none;
-                border-top: none;
-              }
-              .bottom-right {
-                bottom: 10px;
-                right: 10px;
-                border-left: none;
-                border-top: none;
-              }
-              .initials {
-                position: absolute;
-                right: 10px;
-                bottom: 5px;
-                font-size: 10px;
-                color: rgba(255, 255, 255, 0.6);
-              }
-              button {
-                background: #0070f3;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                margin-top: 20px;
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 5px;
-              }
-              button:hover {
-                background: #0051a8;
-              }
-              .cutting-lines {
-                border: 1px dashed #333;
-                margin: 10px;
-              }
-              .print-note {
-                background-color: #f8f9fa;
-                border: 1px solid #ddd;
-                padding: 10px;
-                margin-bottom: 20px;
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-              }
-              .print-note strong {
-                color: #d00;
-                font-weight: bold;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="page">
-            <div class="print-note">
-              <strong>IMPORTANT:</strong> Please make sure Background graphics or Print backgrounds is enabled in your print settings to get the red background color. This setting is usually found under "More settings" in the print dialog.
-            </div>
-            
-            <div class="instructions">
-              <h1>Emergency Medical Information Card</h1>
-              <p>Please follow these steps to create your emergency medical card:</p>
-              <ol>
-                <li>Print this page at 100% scale (no scaling/resizing)</li>
-                <li>Make sure Background graphics is enabled in your print settings</li>
-                <li>Carefully cut along the dashed lines</li>
-                <li>Fold the card if needed and keep it in your wallet</li>
-              </ol>
-              <p>When scanned, this QR code will provide access to your critical medical information.</p>
-            </div>
-            
-            <div class="card-container">
-              <div class="card">
-                <div class="corner top-left"></div>
-                <div class="corner top-right"></div>
-                <div class="corner bottom-left"></div>
-                <div class="corner bottom-right"></div>
-                
-                <div class="med-info">
-                  MED<br>INFO
-                </div>
-                
-                <div class="qr-container">
-                  <img 
-                    src="data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges" width="150" height="150"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#000000" d="M4 4.5h7m1 0h1m1 0h3m1 0h2m3 0h1m1 0h1m1 0h1m1 0h3m1 0h7M4 5.5h1m5 0h1m1 0h2m1 0h1m2 0h1m1 0h2m2 0h1m3 0h1m1 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m5 0h3m1 0h1m1 0h1m3 0h1m3 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h1m3 0h1m3 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h1m3 0h3m6 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h9m1 0h1m9 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M13 11.5h1m1 0h3m3 0h2m1 0h3M5 12.5h1m1 0h1m2 0h3m2 0h1m1 0h2m1 0h1m3 0h1m1 0h1m1 0h2m1 0h5M4 13.5h2m1 0h1m2 0h1m1 0h2m1 0h2m1 0h1m5 0h3m1 0h1m1 0h6M4 14.5h4m3 0h2m1 0h2m2 0h1m3 0h1m2 0h1m2 0h1m1 0h6M5 15.5h1m1 0h3m1 0h2m1 0h1m3 0h1m2 0h1m3 0h1m2 0h1m1 0h1m1 0h4M4 16.5h1m2 0h2m3 0h3m1 0h4m3 0h1m2 0h3m2 0h3m1 0h1M4 17.5h1m2 0h1m1 0h5m5 0h5m3 0h3m1 0h5M5 18.5h1m1 0h2m3 0h1m4 0h2m1 0h2m2 0h1m4 0h7M5 19.5h1m2 0h2m1 0h3m1 0h4m1 0h1m2 0h1m1 0h5m1 0h1m1 0h1M6 20.5h2m3 0h1m1 0h5m4 0h1m2 0h1m3 0h1m3 0h3M4 21.5h1m2 0h3m1 0h2m1 0h1m1 0h1m4 0h1m1 0h1m2 0h3m1 0h1m3 0h1M6 22.5h1m1 0h7m1 0h7m2 0h4m1 0h1m3 0h1M4 23.5h2m4 0h1m3 0h2m2 0h3m4 0h2m2 0h1m5 0h1M4 24.5h1m1 0h2m2 0h4m3 0h2m3 0h1m3 0h1m1 0h1m1 0h1m1 0h3M4 25.5h1m1 0h2m2 0h2m2 0h1m5 0h3m2 0h1m1 0h3m1 0h1m1 0h3M4 26.5h1m2 0h1m5 0h2m1 0h2m1 0h1m1 0h1m2 0h3m3 0h5M4 27.5h2m2 0h4m2 0h5m2 0h1m3 0h2m1 0h3m2 0h3M12 28.5h1m4 0h2m6 0h2m1 0h2m2 0h3M4 29.5h7m1 0h2m3 0h2m1 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3M4 30.5h1m5 0h1m1 0h4m1 0h1m3 0h3m4 0h1m1 0h2m1 0h3M4 31.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h3M4 32.5h1m1 0h3m1 0h1m3 0h2m1 0h1m1 0h3m2 0h1m3 0h2m3 0h3M4 33.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h5M4 34.5h1m5 0h1m2 0h1m2 0h2m2 0h1m1 0h1m1 0h2m3 0h1m5 0h1M4 35.5h7m1 0h1m2 0h3m2 0h3m1 0h2m2 0h3m1 0h4"/></svg>`)}" 
-                    alt="Medical QR Code" 
-                    class="qr-image"
-                  />
-                </div>
-                
-                ${initials ? `<div class="initials">${initials}</div>` : ''}
-              </div>
-            </div>
-            
-            <button class="no-print" onclick="window.print()">Print Medical Card</button>
-          </div>
-        </body>
-      </html>
-    `);
+    // Generate QR code data URL - this is the key fix
+    const qrCodeElement = document.createElement('div');
     
-    printWindow.document.close();
+    // Render QR code to a temporary element
+    const tempQrRoot = document.createElement('div');
+    document.body.appendChild(tempQrRoot);
     
-    // Auto print if possible
-    printWindow.onload = function() {
-      // Try to auto-print
+    // Use react-dom to render our QR code component
+    import('react-dom/client').then((ReactDOM) => {
+      const root = ReactDOM.createRoot(tempQrRoot);
+      root.render(
+        <QRCodeReact
+          value={absoluteUrl}
+          size={150}
+          level="H"
+          bgColor="#FFFFFF"
+          fgColor="#000000"
+        />
+      );
+      
+      // Wait for the QR code to render
       setTimeout(() => {
-        printWindow.print();
-      }, 500);
-    };
+        // Convert the rendered SVG to data URL
+        const svg = tempQrRoot.querySelector('svg');
+        if (svg) {
+          const svgData = new XMLSerializer().serializeToString(svg);
+          const svgDataUrl = `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svgData)))}`;
+          
+          // Now write the print window with the QR code
+          printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>DoctQR - Emergency Medical Card</title>
+                <style>
+                  /* Critical: Force background colors to print */
+                  * {
+                    -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+                    color-adjust: exact !important;                 /* Firefox 48 – 96 */
+                    print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+                  }
+                  
+                  @page {
+                    size: letter;
+                    margin: 0.5in;
+                  }
+                  
+                  @media print {
+                    body {
+                      margin: 0;
+                      padding: 0;
+                    }
+                    .page {
+                      width: 8.5in;
+                      height: 11in;
+                      position: relative;
+                      padding: 0.5in;
+                      box-sizing: border-box;
+                    }
+                    .instructions {
+                      margin-bottom: 20px;
+                      font-family: Arial, sans-serif;
+                    }
+                    .card-container {
+                      width: 3.375in;
+                      height: 2.125in;
+                      margin: 0 auto;
+                      position: relative;
+                      border: 1px dashed #ccc;
+                      padding: 5px;
+                    }
+                    .card {
+                      width: 3.375in;
+                      height: 2.125in;
+                      background-color: #FF0000 !important; /* Force red background */
+                      color: white !important;
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 10px;
+                      box-sizing: border-box;
+                      position: relative;
+                      overflow: hidden;
+                    }
+                    .med-info {
+                      font-size: 42px;
+                      font-weight: bold;
+                      font-family: Arial, sans-serif;
+                      line-height: 1;
+                      padding-left: 15px;
+                      color: white !important;
+                    }
+                    .qr-container {
+                      background: white !important;
+                      padding: 10px;
+                      margin-right: 15px;
+                      width: 150px;
+                      height: 150px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    }
+                    .qr-image {
+                      width: 150px;
+                      height: 150px;
+                    }
+                    .corner {
+                      position: absolute;
+                      width: 25px;
+                      height: 25px;
+                      border: 5px solid white !important;
+                    }
+                    .top-left {
+                      top: 10px;
+                      left: 10px;
+                      border-right: none !important;
+                      border-bottom: none !important;
+                    }
+                    .top-right {
+                      top: 10px;
+                      right: 10px;
+                      border-left: none !important;
+                      border-bottom: none !important;
+                    }
+                    .bottom-left {
+                      bottom: 10px;
+                      left: 10px;
+                      border-right: none !important;
+                      border-top: none !important;
+                    }
+                    .bottom-right {
+                      bottom: 10px;
+                      right: 10px;
+                      border-left: none !important;
+                      border-top: none !important;
+                    }
+                    .initials {
+                      position: absolute;
+                      right: 10px;
+                      bottom: 5px;
+                      font-size: 10px;
+                      color: rgba(255, 255, 255, 0.6) !important;
+                    }
+                    .no-print {
+                      display: none;
+                    }
+                    .cutting-lines {
+                      border: 1px dashed #333;
+                      margin: 10px;
+                    }
+                    .print-note {
+                      background-color: #f8f9fa !important;
+                      border: 1px solid #ddd !important;
+                      padding: 10px !important;
+                      margin-bottom: 20px !important;
+                      font-family: Arial, sans-serif !important;
+                      font-size: 14px !important;
+                      color: #333 !important;
+                    }
+                    .print-note strong {
+                      color: #d00 !important;
+                      font-weight: bold !important;
+                    }
+                    .url-info {
+                      font-size: 8px;
+                      opacity: 0.8;
+                      position: absolute;
+                      bottom: 20px;
+                      right: 10px;
+                      text-align: right;
+                      color: white !important;
+                    }
+                  }
+                  @media screen {
+                    body {
+                      font-family: Arial, sans-serif;
+                      margin: 0;
+                      padding: 20px;
+                      background: #f5f5f5;
+                    }
+                    .page {
+                      background: white;
+                      width: 8.5in;
+                      height: auto;
+                      margin: 0 auto;
+                      padding: 0.5in;
+                      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                    }
+                    .instructions {
+                      margin-bottom: 20px;
+                      max-width: 600px;
+                    }
+                    .card-container {
+                      width: 3.375in;
+                      height: 2.125in;
+                      margin: 0 auto;
+                      position: relative;
+                      border: 1px dashed #ccc;
+                      padding: 5px;
+                    }
+                    .card {
+                      width: 3.375in;
+                      height: 2.125in;
+                      background-color: #FF0000;
+                      color: white;
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 10px;
+                      box-sizing: border-box;
+                      position: relative;
+                      overflow: hidden;
+                    }
+                    .med-info {
+                      font-size: 42px;
+                      font-weight: bold;
+                      line-height: 1;
+                      padding-left: 15px;
+                    }
+                    .qr-container {
+                      background: white;
+                      padding: 10px;
+                      margin-right: 15px;
+                      width: 150px;
+                      height: 150px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    }
+                    .qr-image {
+                      width: 150px;
+                      height: 150px;
+                    }
+                    .corner {
+                      position: absolute;
+                      width: 25px;
+                      height: 25px;
+                      border: 5px solid white;
+                    }
+                    .top-left {
+                      top: 10px;
+                      left: 10px;
+                      border-right: none;
+                      border-bottom: none;
+                    }
+                    .top-right {
+                      top: 10px;
+                      right: 10px;
+                      border-left: none;
+                      border-bottom: none;
+                    }
+                    .bottom-left {
+                      bottom: 10px;
+                      left: 10px;
+                      border-right: none;
+                      border-top: none;
+                    }
+                    .bottom-right {
+                      bottom: 10px;
+                      right: 10px;
+                      border-left: none;
+                      border-top: none;
+                    }
+                    .initials {
+                      position: absolute;
+                      right: 10px;
+                      bottom: 5px;
+                      font-size: 10px;
+                      color: rgba(255, 255, 255, 0.6);
+                    }
+                    .url-info {
+                      font-size: 8px;
+                      opacity: 0.8;
+                      position: absolute;
+                      bottom: 20px;
+                      right: 10px;
+                      text-align: right;
+                    }
+                    button {
+                      background: #0070f3;
+                      color: white;
+                      border: none;
+                      padding: 10px 20px;
+                      margin-top: 20px;
+                      cursor: pointer;
+                      font-size: 16px;
+                      border-radius: 5px;
+                    }
+                    button:hover {
+                      background: #0051a8;
+                    }
+                    .cutting-lines {
+                      border: 1px dashed #333;
+                      margin: 10px;
+                    }
+                    .print-note {
+                      background-color: #f8f9fa;
+                      border: 1px solid #ddd;
+                      padding: 10px;
+                      margin-bottom: 20px;
+                      font-family: Arial, sans-serif;
+                      font-size: 14px;
+                    }
+                    .print-note strong {
+                      color: #d00;
+                      font-weight: bold;
+                    }
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="page">
+                  <div class="print-note">
+                    <strong>IMPORTANT:</strong> Please make sure Background graphics or Print backgrounds is enabled in your print settings to get the red background color. This setting is usually found under "More settings" in the print dialog.
+                  </div>
+                  
+                  <div class="instructions">
+                    <h1>Emergency Medical Information Card</h1>
+                    <p>Please follow these steps to create your emergency medical card:</p>
+                    <ol>
+                      <li>Print this page at 100% scale (no scaling/resizing)</li>
+                      <li>Make sure Background graphics is enabled in your print settings</li>
+                      <li>Carefully cut along the dashed lines</li>
+                      <li>Fold the card if needed and keep it in your wallet</li>
+                    </ol>
+                    <p>When scanned, this QR code will provide access to your critical medical information.</p>
+                  </div>
+                  
+                  <div class="card-container">
+                    <div class="card">
+                      <div class="corner top-left"></div>
+                      <div class="corner top-right"></div>
+                      <div class="corner bottom-left"></div>
+                      <div class="corner bottom-right"></div>
+                      
+                      <div class="med-info">
+                        MED<br>INFO
+                      </div>
+                      
+                      <div class="qr-container">
+                        <img 
+                          src="${svgDataUrl}" 
+                          alt="Medical QR Code" 
+                          class="qr-image"
+                        />
+                      </div>
+                      
+                      ${initials ? `<div class="initials">${initials}</div>` : ''}
+                      <div class="url-info">doctqr.link</div>
+                    </div>
+                  </div>
+                  
+                  <button class="no-print" onclick="window.print()">Print Medical Card</button>
+                </div>
+              </body>
+            </html>
+          `);
+          
+          printWindow.document.close();
+          
+          // Auto print if possible
+          printWindow.onload = function() {
+            // Try to auto-print
+            setTimeout(() => {
+              printWindow.print();
+            }, 500);
+          };
+          
+          // Clean up
+          document.body.removeChild(tempQrRoot);
+        }
+      }, 100);
+    });
   };
   
   return (
@@ -393,6 +446,7 @@ const PrintableMedicalCard: React.FC<PrintableMedicalCardProps> = ({
               {firstName.charAt(0)}{lastName.charAt(0)}
             </div>
           )}
+          <div className="absolute bottom-5 right-2 text-xs opacity-70">doctqr.link</div>
         </div>
       </div>
       
