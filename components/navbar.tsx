@@ -178,7 +178,7 @@ export const Navbar = () => {
             <DropdownItem key="FR">Français</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <ThemeSwitch />
+  
         <NavbarMenuToggle />
       </NavbarContent>
 
