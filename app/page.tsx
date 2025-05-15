@@ -60,7 +60,7 @@ export default function DoctQRPage() {
             <div className="service-card p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <div className="flex justify-center mb-4">
                 <Image 
-                  src="/img/doc3.png" 
+                  src="/img/mydoc.jpg" 
                   alt="Medical icon" 
                   width={80} 
                   height={80}
