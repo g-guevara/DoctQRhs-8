@@ -188,17 +188,40 @@ export default function ProfilePage() {
     };
   }, [router]);
 
-  // Effect to fetch existing medical info link
+  // Effect to fetch existing medical info with user ID
   useEffect(() => {
     if (user?._id) {
       const fetchMedicalInfo = async () => {
         try {
-          const response = await fetch('/api/medical-info');
+          // Pass user ID as query parameter
+          const response = await fetch(`/api/medical-info?userId=${user._id}`);
+          
           if (response.ok) {
             const data = await response.json();
+            
             if (data.exists) {
               setSharedLink(data.publicUrl);
+              
+              // If medical info exists, update form state with the data
+              if (data.medicalInfo) {
+                setFormData({
+                  birthDate: data.medicalInfo.birthDate || "",
+                  language: data.medicalInfo.language || "english",
+                  isOrganDonor: data.medicalInfo.isOrganDonor || false,
+                  isPregnant: data.medicalInfo.isPregnant,
+                  medications: data.medicalInfo.medications || [],
+                  allergies: data.medicalInfo.allergies || [],
+                  emergencyContacts: data.medicalInfo.emergencyContacts || [],
+                  conditions: data.medicalInfo.conditions || [],
+                  height: data.medicalInfo.height?.toString() || "",
+                  weight: data.medicalInfo.weight?.toString() || "",
+                  bloodType: data.medicalInfo.bloodType || "",
+                  additionalNotes: data.medicalInfo.additionalNotes || ""
+                });
+              }
             }
+          } else {
+            console.error('Failed to fetch medical info:', await response.text());
           }
         } catch (error) {
           console.error('Error fetching medical info:', error);
@@ -316,7 +339,7 @@ const handleSaveChanges = async () => {
     const numericHeight = formData.height ? parseFloat(formData.height) : undefined;
     const numericWeight = formData.weight ? parseFloat(formData.weight) : undefined;
     
-    // Create medical info object
+    // Create medical info object with user ID
     const medicalInfo = {
       birthDate: formData.birthDate,
       language: formData.language,
@@ -330,8 +353,8 @@ const handleSaveChanges = async () => {
       weight: numericWeight,
       bloodType: formData.bloodType,
       additionalNotes: formData.additionalNotes,
-      // Include the user ID if available
-      userId: user._id || "demo-user-id"
+      // Always include the user ID
+      userId: user._id
     };
     
     console.log("Saving medical info:", medicalInfo);

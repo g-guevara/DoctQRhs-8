@@ -3,25 +3,71 @@ import { randomUUID } from 'crypto';
 import dbConnect from '../../../models/db';
 import User from '../../../models/User';
 import MedicalInfo from '../../../models/MedicalInfo';
+import { headers } from 'next/headers';
+import { verify } from 'jsonwebtoken';
 
-// GET handler to check if medical info exists for the user
+// Helper function to extract user ID from cookies/auth token
+const getUserIdFromRequest = async (req) => {
+  try {
+    // Check for authorization header or cookie
+    const headersList = headers();
+    const authToken = headersList.get('Authorization')?.split(' ')[1] 
+                     || req.cookies?.get('auth-token')?.value;
+    
+    if (authToken) {
+      // Verify JWT token
+      const JWT_SECRET = process.env.JWT_SECRET || "doctqr-jwt-secret-key";
+      const decoded = verify(authToken, JWT_SECRET);
+      return decoded.userId;
+    }
+    
+    // For now, also try to parse user ID from request body as fallback
+    // This ensures compatibility with the current frontend implementation
+    const body = await req.json();
+    if (body && body.userId) {
+      return body.userId;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error extracting user ID:', error);
+    return null;
+  }
+};
+
+// GET handler to check if medical info exists for the user and return the data
 export async function GET(req) {
   try {
     await dbConnect();
     console.log('Database connected in GET handler');
     
-    // For demo purposes - in production, get user ID from session/token
-    // This is just a placeholder - you should implement proper auth
-    const userId = "demo-user-id";
+    // Try to get user ID from request
+    const requestUrl = new URL(req.url);
+    const userId = requestUrl.searchParams.get('userId');
+    
+    // If no userId in query params, return error
+    if (!userId) {
+      return new Response(
+        JSON.stringify({ 
+          error: 'User ID is required' 
+        }), 
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
     
     // Check if medical info exists
     const medicalInfo = await MedicalInfo.findOne({ userId });
     console.log('Medical info found:', !!medicalInfo);
     
+    // Return both the existence status, URL, and full medical info
     return new Response(
       JSON.stringify({ 
         exists: !!medicalInfo,
-        publicUrl: medicalInfo ? `/view/${medicalInfo.publicId}` : null
+        publicUrl: medicalInfo ? `/view/${medicalInfo.publicId}` : null,
+        medicalInfo: medicalInfo || null
       }), 
       { 
         status: 200,
@@ -53,9 +99,19 @@ export async function POST(req) {
     const medicalInfoData = await req.json();
     console.log('Received medical info data:', JSON.stringify(medicalInfoData).substring(0, 100) + '...');
     
-    // For demo purposes - in production, get user ID from session/token
-    // This is just a placeholder - you should implement proper auth
-    const userId = medicalInfoData.userId || "demo-user-id";
+    // Get user ID from request body
+    const userId = medicalInfoData.userId;
+    
+    if (!userId) {
+      return new Response(
+        JSON.stringify({ error: 'User ID is required' }), 
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+    
     console.log('Using userId:', userId);
     
     // Generate a public ID
