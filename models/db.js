@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 // Database connection
-const MONGODB_URI = "mongodb+srv://0okm1qaz2wdc:7I4f1UzE1MtPMA3x@cluster0.zjwennm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 let cached = global.mongoose;
 

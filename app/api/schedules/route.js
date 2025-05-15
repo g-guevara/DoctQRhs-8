@@ -19,13 +19,13 @@ const ScheduleSchema = new mongoose.Schema({
 const Schedule = mongoose.models.Schedule || mongoose.model('Schedule', ScheduleSchema);
 
 // Configuración de Nodemailer
-const userGmail = "3rfv4edc5tgb@gmail.com";
-const passAppGmail = "xepiqshjnwqjdpkg";
+const userGmail = process.env.EMAIL_USER;
+const passAppGmail = process.env.EMAIL_PASSWORD;
 
 const transporter = nodemailer.createTransport({
   secure: true,
-  host: "smtp.gmail.com",
-  port: 465,
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT),
   auth: {
     user: userGmail,
     pass: passAppGmail,
